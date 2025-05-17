@@ -26,10 +26,6 @@ const Hero = () => {
       {/* Hero content */}
       <div className="container relative z-10">
         <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
-          <div className="inline-flex items-center px-4 py-2 rounded-full bg-secondary/50 backdrop-blur-sm mb-8 border border-border/50">
-            <span className="h-2 w-2 rounded-full bg-primary animate-pulse mr-2" />
-            <p className="text-sm font-medium">Now in public beta — Get early access</p>
-          </div>
           
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6">
             Transform <span className="gradient-text">images</span> into stunning <span className="gradient-text">3D models</span> instantly
