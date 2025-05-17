@@ -1,6 +1,7 @@
 
 import { cn } from '@/lib/utils';
 import { LayoutGrid, Image, Layers, Download } from 'lucide-react';
+import AnimateOnScroll from './AnimateOnScroll';
 
 const features = [
   {
@@ -29,34 +30,40 @@ const Features = () => {
   return (
     <section className="py-24 relative overflow-hidden" id="features">
       <div className="container relative z-10">
-        <div className="text-center mb-16">
+        <AnimateOnScroll animation="animate-fade-in translate-y-0" className="mb-16 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Powerful Features</h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             Our cutting-edge technology makes 3D modeling accessible to everyone, 
             no technical expertise required.
           </p>
-        </div>
+        </AnimateOnScroll>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {features.map((feature, i) => (
-            <div 
+            <AnimateOnScroll 
               key={i}
-              className={cn(
-                "group relative p-6 rounded-xl",
-                "bg-secondary/50 backdrop-blur-sm border border-border/50",
-                "transition-all duration-300 hover:-translate-y-1",
-                "hover:shadow-lg hover:shadow-primary/10"
-              )}
+              animation="animate-fade-in scale-100"
+              delay={100 * (i + 1)}
+              threshold={0.2}
             >
-              <div className="absolute -inset-0.5 rounded-xl bg-gradient-to-r from-primary/50 to-purple-500/50 opacity-0 group-hover:opacity-100 transition-opacity blur-sm" />
-              <div className="relative bg-secondary/80 backdrop-blur-sm rounded-lg p-6">
-                <div className="mb-4 bg-primary/10 w-12 h-12 rounded-lg flex items-center justify-center">
-                  <feature.icon className="w-6 h-6 text-primary" />
+              <div 
+                className={cn(
+                  "group relative p-6 rounded-xl",
+                  "bg-secondary/50 backdrop-blur-sm border border-border/50",
+                  "transition-all duration-500 hover:-translate-y-2",
+                  "hover:shadow-lg hover:shadow-primary/10"
+                )}
+              >
+                <div className="absolute -inset-0.5 rounded-xl bg-gradient-to-r from-primary/50 to-purple-500/50 opacity-0 group-hover:opacity-100 transition-opacity blur-sm" />
+                <div className="relative bg-secondary/80 backdrop-blur-sm rounded-lg p-6">
+                  <div className="mb-4 bg-primary/10 w-12 h-12 rounded-lg flex items-center justify-center">
+                    <feature.icon className="w-6 h-6 text-primary" />
+                  </div>
+                  <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
+                  <p className="text-muted-foreground">{feature.description}</p>
                 </div>
-                <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
-                <p className="text-muted-foreground">{feature.description}</p>
               </div>
-            </div>
+            </AnimateOnScroll>
           ))}
         </div>
       </div>

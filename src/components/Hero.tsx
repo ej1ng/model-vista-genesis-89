@@ -2,6 +2,7 @@
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
+import AnimateOnScroll from './AnimateOnScroll';
 
 const Hero = () => {
   const { toast } = useToast();
@@ -15,19 +16,23 @@ const Hero = () => {
       <div className="container relative z-10">
         <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
           
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6">
-            Transform <span className="gradient-text">images</span> into stunning <span className="gradient-text">3D models</span> instantly
-          </h1>
+          <AnimateOnScroll animation="animate-fade-in translate-y-0" className="w-full">
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6">
+              Transform <span className="gradient-text">images</span> into stunning <span className="gradient-text">3D models</span> instantly
+            </h1>
+          </AnimateOnScroll>
           
-          <p className="text-xl text-muted-foreground max-w-3xl mb-16">
-            Prompt2CAD uses advanced AI to convert your 2D images into detailed, 
-            ready-to-use 3D models in seconds. Perfect for designers, developers, and creators.
-          </p>
+          <AnimateOnScroll animation="animate-fade-in translate-y-0" delay={200} className="w-full">
+            <p className="text-xl text-muted-foreground max-w-3xl mb-16">
+              Prompt2CAD uses advanced AI to convert your 2D images into detailed, 
+              ready-to-use 3D models in seconds. Perfect for designers, developers, and creators.
+            </p>
+          </AnimateOnScroll>
           
-          <div className="relative w-full max-w-5xl">
+          <AnimateOnScroll animation="animate-fade-in translate-y-0" delay={400} className="w-full relative max-w-5xl">
             {/* Background glow effects */}
-            <div className="absolute -left-10 -top-10 w-40 h-40 bg-indigo-500/20 rounded-full filter blur-3xl" />
-            <div className="absolute -right-10 -bottom-10 w-40 h-40 bg-purple-500/20 rounded-full filter blur-3xl" />
+            <div className="absolute -left-10 -top-10 w-40 h-40 bg-indigo-500/20 rounded-full filter blur-3xl animate-pulse-slow" />
+            <div className="absolute -right-10 -bottom-10 w-40 h-40 bg-purple-500/20 rounded-full filter blur-3xl animate-pulse-slow" />
             
             {/* Image frame */}
             <div className="relative rounded-xl overflow-hidden border border-border/50 bg-black/30 backdrop-blur-sm shadow-xl">
@@ -70,13 +75,13 @@ const Hero = () => {
                 <div className="text-xs text-muted-foreground">Prompt2CAD Demo</div>
               </div>
             </div>
-          </div>
+          </AnimateOnScroll>
         </div>
       </div>
       
       {/* Abstract shapes */}
-      <div className="absolute top-1/4 -left-40 w-80 h-80 bg-purple-500/10 rounded-full filter blur-3xl" />
-      <div className="absolute bottom-1/4 -right-40 w-80 h-80 bg-indigo-500/10 rounded-full filter blur-3xl" />
+      <div className="absolute top-1/4 -left-40 w-80 h-80 bg-purple-500/10 rounded-full filter blur-3xl animate-float" />
+      <div className="absolute bottom-1/4 -right-40 w-80 h-80 bg-indigo-500/10 rounded-full filter blur-3xl animate-float" />
     </div>
   );
 };
