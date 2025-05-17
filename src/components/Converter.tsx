@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
-import { Image, Upload, ArrowRight, Download } from 'lucide-react';
+import { Image, Upload, ArrowRight, Download, Layers } from 'lucide-react';
 
 const Converter = () => {
   const { toast } = useToast();
