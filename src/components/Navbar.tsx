@@ -57,7 +57,7 @@ const Navbar = () => {
                 isActive ? "text-primary" : "text-muted-foreground"
               )}
             >
-              Examples
+              Try It Now
             </NavLink>
           </nav>
         </div>
