@@ -21,7 +21,7 @@ const AnimatedBackground = () => {
     
     // Create particles
     const particles: Particle[] = [];
-    const particleCount = 100;
+    const particleCount = 80;
     
     interface Particle {
       x: number;
@@ -32,21 +32,30 @@ const AnimatedBackground = () => {
       color: string;
     }
     
+    // Color palette - using softer colors for better interaction with the cursor light
+    const colors = [
+      'rgba(80, 70, 180, 0.4)',
+      'rgba(100, 90, 200, 0.3)',
+      'rgba(120, 110, 220, 0.2)',
+      'rgba(130, 130, 230, 0.3)',
+    ];
+    
     // Initialize particles
     for (let i = 0; i < particleCount; i++) {
       particles.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
         size: Math.random() * 3 + 1,
-        speedX: (Math.random() - 0.5) * 0.5,
-        speedY: (Math.random() - 0.5) * 0.5,
-        color: `rgba(${Math.floor(Math.random() * 100 + 155)}, ${Math.floor(Math.random() * 100 + 155)}, ${Math.floor(Math.random() * 255)}, ${Math.random() * 0.1 + 0.1})`
+        speedX: (Math.random() - 0.5) * 0.3,
+        speedY: (Math.random() - 0.5) * 0.3,
+        color: colors[Math.floor(Math.random() * colors.length)]
       });
     }
     
     // Animation
     const animate = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = 'rgba(20, 20, 35, 0.2)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
       
       // Update and draw particles
       for (const particle of particles) {
@@ -73,9 +82,9 @@ const AnimatedBackground = () => {
           const dy = particles[i].y - particles[j].y;
           const distance = Math.sqrt(dx * dx + dy * dy);
           
-          if (distance < 100) {
+          if (distance < 120) {
             ctx.beginPath();
-            ctx.strokeStyle = `rgba(150, 150, 255, ${0.1 * (1 - distance / 100)})`;
+            ctx.strokeStyle = `rgba(180, 180, 255, ${0.05 * (1 - distance / 120)})`;
             ctx.lineWidth = 0.5;
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
@@ -97,7 +106,7 @@ const AnimatedBackground = () => {
   return (
     <canvas 
       ref={canvasRef} 
-      className="fixed inset-0 z-0 pointer-events-none"
+      className="fixed inset-0 z-0 pointer-events-none bg-gray-900"
     />
   );
 };

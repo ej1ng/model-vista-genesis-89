@@ -18,15 +18,15 @@ const steps = [
   },
   {
     number: "03",
-    title: "Prompt a model",
+    title: "Upload a drawing of your desired object",
     description: "Prompt to generate a custom tool, device, or accessory and we will build you a 3D model automatically.",
     color: "from-fuchsia-500 to-purple-600",
-    icon: "💬"
+    icon: "📝"
   },
   {
     number: "04",
-    title: "Download or use",
-    description: "Download your 3D model in your preferred format, ready to use in games, AR/VR applications, 3D printing, or any other project.",
+    title: "Download, use, or purchase",
+    description: "Download your 3D model ready to use in games, 3D printing, and more. Or purchase ",
     color: "from-pink-500 to-fuchsia-600",
     icon: "📥"
   }
@@ -85,7 +85,6 @@ const HowItWorks = () => {
                   {i < steps.length - 1 && (
                     <div className="flex items-center mt-6 mb-6">
                       <div className="h-0.5 bg-gradient-to-r from-indigo-500/50 to-transparent flex-grow" />
-                      <ArrowRight className="mx-2 text-indigo-500/50 animate-bounce-slow" />
                     </div>
                   )}
                 </div>
