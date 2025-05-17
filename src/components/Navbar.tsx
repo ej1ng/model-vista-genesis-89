@@ -64,10 +64,6 @@ const Navbar = () => {
           </nav>
         </div>
 
-        <div className="flex items-center space-x-4">
-          <Button variant="outline" className="hidden md:inline-flex">Sign In</Button>
-          <Button onClick={scrollToSection('converter')}>Try for Free</Button>
-        </div>
       </div>
     </header>
   );

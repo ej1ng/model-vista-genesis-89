@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Download, ArrowLeft, RefreshCw } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import Navbar from '@/components/Navbar';
+import ModelViewer3D from '@/components/ModelViewer3D';
 
 const ModelViewer = () => {
   const { toast } = useToast();
@@ -83,11 +84,9 @@ const ModelViewer = () => {
                   </Button>
                 </div>
               ) : (
-                // 3D Model viewer would go here - using placeholder for now
-                <div className="w-full h-full flex items-center justify-center">
-                  <div className="w-60 h-60 bg-gradient-to-br from-indigo-500/30 via-purple-500/30 to-pink-500/30 rounded-lg animate-rotate-slow">
-                    <div className="w-full h-full bg-gradient-to-br from-indigo-500/80 via-purple-500/80 to-pink-500/80 rounded-lg animate-pulse-slow transform scale-90 rotate-12" />
-                  </div>
+                // 3D Model viewer instead of placeholder
+                <div className="w-full h-full">
+                  <ModelViewer3D modelPath="/prosthetic-arm.glb" />
                 </div>
               )}
             </div>
