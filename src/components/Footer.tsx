@@ -18,7 +18,6 @@ const Footer = () => {
             <ul className="space-y-2">
               <li><NavLink to="/how-it-works" className="text-muted-foreground text-sm hover:text-primary transition-colors">How It Works</NavLink></li>
               <li><NavLink to="/examples" className="text-muted-foreground text-sm hover:text-primary transition-colors">Examples</NavLink></li>
-              <li><NavLink to="/pricing" className="text-muted-foreground text-sm hover:text-primary transition-colors">Pricing</NavLink></li>
               <li><NavLink to="/faq" className="text-muted-foreground text-sm hover:text-primary transition-colors">FAQ</NavLink></li>
             </ul>
           </div>

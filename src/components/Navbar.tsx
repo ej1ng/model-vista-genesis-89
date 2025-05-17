@@ -59,15 +59,6 @@ const Navbar = () => {
             >
               Examples
             </NavLink>
-            <NavLink 
-              to="/pricing" 
-              className={({isActive}) => cn(
-                "text-sm font-medium transition-colors hover:text-primary",
-                isActive ? "text-primary" : "text-muted-foreground"
-              )}
-            >
-              Pricing
-            </NavLink>
           </nav>
         </div>
 
