@@ -1,4 +1,3 @@
-
 import AnimateOnScroll from './AnimateOnScroll';
 
 const steps = [
@@ -30,7 +29,7 @@ const steps = [
 
 const HowItWorks = () => {
   return (
-    <section className="py-24 relative overflow-hidden bg-black/30">
+    <section className="py-24 relative overflow-hidden bg-black/30" id="how-it-works">
       <div className="container relative z-10">
         <AnimateOnScroll animation="animate-fade-in translate-y-0" className="mb-16 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">How It Works</h2>
