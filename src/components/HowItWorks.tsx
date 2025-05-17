@@ -1,0 +1,69 @@
+
+const steps = [
+  {
+    number: "01",
+    title: "Upload your image",
+    description: "Upload a clear image of the object you want to convert to 3D. Our system works best with well-lit photos from multiple angles.",
+    color: "from-indigo-500 to-blue-600"
+  },
+  {
+    number: "02",
+    title: "AI processes your image",
+    description: "Our advanced neural networks analyze the image, detect edges, estimate depth, and build a 3D representation automatically.",
+    color: "from-purple-500 to-indigo-600"
+  },
+  {
+    number: "03",
+    title: "Review and edit",
+    description: "Use our intuitive editor to fine-tune your 3D model. Adjust details, apply textures, or modify dimensions as needed.",
+    color: "from-fuchsia-500 to-purple-600"
+  },
+  {
+    number: "04",
+    title: "Download or use",
+    description: "Download your 3D model in your preferred format, ready to use in games, AR/VR applications, 3D printing, or any other project.",
+    color: "from-pink-500 to-fuchsia-600"
+  }
+];
+
+const HowItWorks = () => {
+  return (
+    <section className="py-24 relative overflow-hidden bg-black/30">
+      <div className="container relative z-10">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">How It Works</h2>
+          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+            Our streamlined process makes converting images to 3D models simple, 
+            fast, and accurate.
+          </p>
+        </div>
+        
+        <div className="max-w-4xl mx-auto">
+          {steps.map((step, i) => (
+            <div key={i} className="flex flex-col md:flex-row items-start mb-12 last:mb-0">
+              <div className="flex-shrink-0 mr-8 mb-4 md:mb-0">
+                <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${step.color} flex items-center justify-center shadow-lg shadow-primary/20`}>
+                  <span className="text-white font-bold text-2xl">{step.number}</span>
+                </div>
+              </div>
+              
+              <div className="flex-grow">
+                <h3 className="text-2xl font-semibold mb-2">{step.title}</h3>
+                <p className="text-muted-foreground">{step.description}</p>
+                
+                {i < steps.length - 1 && (
+                  <div className="ml-8 mt-8 mb-8 border-l-2 border-dashed border-border h-8 opacity-50" />
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+      
+      {/* Background elements */}
+      <div className="absolute inset-0 grid-bg opacity-10" />
+    </section>
+  );
+};
+
+export default HowItWorks;
