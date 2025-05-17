@@ -5,19 +5,7 @@ import { useToast } from '@/hooks/use-toast';
 
 const Hero = () => {
   const { toast } = useToast();
-  const [email, setEmail] = useState('');
   
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (email) {
-      toast({
-        title: "Early access requested!",
-        description: "We'll notify you when it's your turn.",
-      });
-      setEmail('');
-    }
-  };
-
   return (
     <div className="relative min-h-screen flex flex-col justify-center mesh-bg overflow-hidden pt-24 pb-16">
       {/* Grid overlay */}
@@ -31,24 +19,10 @@ const Hero = () => {
             Transform <span className="gradient-text">images</span> into stunning <span className="gradient-text">3D models</span> instantly
           </h1>
           
-          <p className="text-xl text-muted-foreground max-w-3xl mb-12">
+          <p className="text-xl text-muted-foreground max-w-3xl mb-16">
             Prompt2CAD uses advanced AI to convert your 2D images into detailed, 
             ready-to-use 3D models in seconds. Perfect for designers, developers, and creators.
           </p>
-          
-          <form onSubmit={handleSubmit} className="flex w-full max-w-md flex-col sm:flex-row gap-4 mb-16">
-            <input
-              type="email"
-              placeholder="Enter your email"
-              className="flex-1 h-12 px-4 bg-secondary/50 backdrop-blur-sm border border-border/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-            <Button type="submit" size="lg" className="h-12">
-              Get Early Access
-            </Button>
-          </form>
           
           <div className="relative w-full max-w-5xl">
             {/* Background glow effects */}
