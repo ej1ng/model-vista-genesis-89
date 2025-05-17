@@ -11,13 +11,13 @@ const steps = [
   {
     number: "02",
     title: "AI processes your image",
-    description: "Our advanced neural networks analyze the image, detect edges, estimate depth, and build a 3D representation automatically.",
+    description: "Our advanced neural networks analyze the image, detect edges, and estimate depth of your object.",
     color: "from-purple-500 to-indigo-600"
   },
   {
     number: "03",
-    title: "Review and edit",
-    description: "Use our intuitive editor to fine-tune your 3D model. Adjust details, apply textures, or modify dimensions as needed.",
+    title: "Prompt a model",
+    description: "Prompt to generate a custom tool, device, or accessory and we will build you a 3D model automatically.",
     color: "from-fuchsia-500 to-purple-600"
   },
   {
