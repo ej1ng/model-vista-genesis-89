@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Download, ArrowLeft, RefreshCw, Upload, Image as ImageIcon, PenTool } from 'lucide-react';
+import { Download, ArrowLeft, RefreshCw, Upload, Image as ImageIcon, PenTool, Box } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import Navbar from '@/components/Navbar';
 import ModelViewer3D from '@/components/ModelViewer3D';
@@ -57,6 +57,16 @@ const ModelViewer = () => {
     navigate('/');
   };
   
+  const handleGenerateCustomModel = () => {
+    // Redirect to custom model viewer page with source and drawing images
+    navigate('/custom-model-viewer', { 
+      state: { 
+        sourceImage, 
+        drawingImage 
+      } 
+    });
+  };
+  
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -92,9 +102,6 @@ const ModelViewer = () => {
           title: "Drawing uploaded",
           description: "Your drawing will be used to refine the 3D model.",
         });
-        
-        // In a real app, this would trigger a refinement of the 3D model
-        // based on the drawing
       }
     };
     reader.readAsDataURL(file);
@@ -220,14 +227,26 @@ const ModelViewer = () => {
                 )}
               </div>
               
-              <Button 
-                onClick={handleDownload}
-                className="w-full"
-                disabled={loading || !!error}
-              >
-                <Download className="mr-2 h-4 w-4" />
-                Download 3D Model
-              </Button>
+              <div className="flex gap-3">
+                <Button 
+                  onClick={handleDownload}
+                  className="flex-1"
+                  disabled={loading || !!error}
+                >
+                  <Download className="mr-2 h-4 w-4" />
+                  Download Model
+                </Button>
+                
+                {/* Generate Custom 3D Model Button */}
+                <Button 
+                  onClick={handleGenerateCustomModel}
+                  className="flex-1 bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700"
+                  disabled={loading || !!error || !drawingImage}
+                >
+                  <Box className="mr-2 h-4 w-4" />
+                  Generate 3D Model
+                </Button>
+              </div>
             </div>
           </div>
           
@@ -265,15 +284,26 @@ const ModelViewer = () => {
                     <p className="text-sm text-muted-foreground">Processing drawing (45%)</p>
                   </div>
                   
-                  <Button 
-                    variant="outline" 
-                    size="sm" 
-                    onClick={triggerDrawingUpload}
-                    className="self-end"
-                  >
-                    <Upload className="mr-2 h-4 w-4" />
-                    Upload New Drawing
-                  </Button>
+                  <div className="flex gap-3 mt-4">
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      onClick={triggerDrawingUpload}
+                      className="flex-1"
+                    >
+                      <Upload className="mr-2 h-4 w-4" />
+                      Upload New Drawing
+                    </Button>
+                    
+                    <Button 
+                      onClick={handleGenerateCustomModel}
+                      className="flex-1 bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700"
+                      disabled={!drawingImage}
+                    >
+                      <Box className="mr-2 h-4 w-4" />
+                      Generate 3D Model
+                    </Button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -289,8 +319,6 @@ const ModelViewer = () => {
                 <p className="text-muted-foreground">STL, OBJ, GLB</p>
               </div>
               <div className="p-4 bg-black/30 rounded-lg">
-                <h3 className="font-medium mb-1">Polygon Count</h3>
-                <p className="text-muted-foreground">24,568 triangles</p>
               </div>
               <div className="p-4 bg-black/30 rounded-lg">
                 <h3 className="font-medium mb-1">Scale</h3>
