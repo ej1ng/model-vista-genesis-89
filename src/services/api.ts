@@ -1,6 +1,6 @@
 // API service for communicating with the backend
 
-const API_URL = 'http://localhost:5500';
+const API_URL = 'https://snapcadbackend.onrender.com/';
 
 /**
  * Generate a 3D model from an image
