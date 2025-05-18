@@ -52,7 +52,7 @@ const Navbar = () => {
       <div className="container flex items-center justify-between">
         <div className="flex items-center">
           <a href="/" className="flex items-center" onClick={goToHome}>
-            <span className="text-2xl font-bold gradient-text">Prompt2CAD</span>
+            <span className="text-2xl font-bold gradient-text">SnapCAD</span>
           </a>
           
           <nav className="hidden md:flex ml-10 space-x-8">

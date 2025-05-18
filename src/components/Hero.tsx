@@ -45,8 +45,8 @@ const Hero = () => {
           </AnimateOnScroll>
           
           <AnimateOnScroll animation="animate-fade-in translate-y-0" delay={200} className="w-full">
-            <p className="text-xl text-muted-foreground max-w-3xl mb-16">
-              Prompt2CAD uses advanced AI to convert your 2D images into detailed, 
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto text-center mb-16">
+              SnapCAD uses advanced AI to convert your 2D images into detailed, 
               ready-to-use 3D models in seconds. Perfect for designers, developers, and creators.
             </p>
           </AnimateOnScroll>
@@ -90,7 +90,7 @@ const Hero = () => {
                   <div className="w-3 h-3 rounded-full bg-yellow-500 hover:animate-bounce-slow transition-all duration-300" />
                   <div className="w-3 h-3 rounded-full bg-green-500 hover:animate-bounce-slow transition-all duration-300" />
                 </div>
-                <div className="text-xs text-muted-foreground">Prompt2CAD Demo</div>
+                <div className="text-xs text-muted-foreground">SnapCAD Demo</div>
               </div>
             </div>
           </AnimateOnScroll>
