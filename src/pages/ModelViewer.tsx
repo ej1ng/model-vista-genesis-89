@@ -134,10 +134,16 @@ const ModelViewer = () => {
     reader.onload = (event) => {
       if (typeof event.target?.result === 'string') {
         setDrawingImage(event.target.result);
+        
+        // Generate a new 3D model using the drawing
+        setLoading(true);
         toast({
-          title: "Drawing uploaded",
-          description: "Your drawing will be used to refine the 3D model.",
+          title: "Generating new model",
+          description: "Creating a 3D model based on your drawing...",
         });
+        
+        // Use the drawing file as the source for the new model
+        generateModel(file);
       }
     };
     reader.readAsDataURL(file);
@@ -277,10 +283,10 @@ const ModelViewer = () => {
                 <Button 
                   onClick={handleGenerateCustomModel}
                   className="flex-1 bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700"
-                  disabled={loading || !!error || !drawingImage}
+                  disabled={!drawingImage}
                 >
                   <Box className="mr-2 h-4 w-4" />
-                  Generate 3D Model
+                  View in Custom Editor
                 </Button>
               </div>
             </div>
@@ -337,7 +343,7 @@ const ModelViewer = () => {
                       disabled={!drawingImage}
                     >
                       <Box className="mr-2 h-4 w-4" />
-                      Generate 3D Model
+                      View in Custom Editor
                     </Button>
                   </div>
                 </div>
