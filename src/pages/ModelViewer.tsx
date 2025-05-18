@@ -5,6 +5,7 @@ import { Download, ArrowLeft, RefreshCw, Upload, Image as ImageIcon, PenTool, Bo
 import { useToast } from '@/hooks/use-toast';
 import Navbar from '@/components/Navbar';
 import ModelViewer3D from '@/components/ModelViewer3D';
+import { generate3DModel } from '@/services/api';
 
 const ModelViewer = () => {
   const { toast } = useToast();
@@ -14,11 +15,13 @@ const ModelViewer = () => {
   const [error, setError] = useState<string | null>(null);
   const [sourceImage, setSourceImage] = useState<string | null>(null);
   const [drawingImage, setDrawingImage] = useState<string | null>(null);
+  const [modelUrl, setModelUrl] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const drawingInputRef = useRef<HTMLInputElement>(null);
   
   // Get the image data from location state
   const imageData = location.state?.imageData;
+  const imageFile = location.state?.imageFile;
   
   useEffect(() => {
     if (!imageData) {
@@ -29,24 +32,65 @@ const ModelViewer = () => {
     
     setSourceImage(imageData);
     
-    // Simulate model generation
-    const timer = setTimeout(() => {
+    // If we have an actual file, generate the 3D model
+    if (imageFile) {
+      generateModel(imageFile);
+    } else {
+      // Fallback to the demo model if no file is provided
+      setLoading(false);
+      toast({
+        title: "Demo 3D Model Loaded",
+        description: "This is a sample model. Upload an image to generate a custom model.",
+      });
+    }
+  }, [imageData, imageFile, toast]);
+  
+  const generateModel = async (file: File) => {
+    setLoading(true);
+    setError(null);
+    
+    try {
+      const modelBlob = await generate3DModel(file);
+      // Create a URL for the blob
+      const url = URL.createObjectURL(modelBlob);
+      setModelUrl(url);
       setLoading(false);
       toast({
         title: "3D Model Generated",
         description: "Your 3D model is ready to view and download.",
       });
-    }, 3000);
-    
-    return () => clearTimeout(timer);
-  }, [imageData, toast]);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to generate model');
+      setLoading(false);
+      toast({
+        title: "Error",
+        description: err instanceof Error ? err.message : 'Failed to generate model',
+        variant: "destructive",
+      });
+    }
+  };
   
   const handleDownload = () => {
-    toast({
-      title: "Download started",
-      description: "Your 3D model will download shortly.",
-    });
-    // In a real app, this would trigger an actual download
+    if (modelUrl) {
+      // Create an anchor element and trigger download
+      const a = document.createElement('a');
+      a.href = modelUrl;
+      a.download = 'model.glb';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      
+      toast({
+        title: "Download started",
+        description: "Your 3D model will download shortly.",
+      });
+    } else {
+      toast({
+        title: "No model available",
+        description: "Please wait for the model to generate or try again.",
+        variant: "destructive",
+      });
+    }
   };
   
   const handleGoBack = () => {
@@ -62,7 +106,8 @@ const ModelViewer = () => {
     navigate('/custom-model-viewer', { 
       state: { 
         sourceImage, 
-        drawingImage 
+        drawingImage,
+        modelUrl
       } 
     });
   };
@@ -75,16 +120,7 @@ const ModelViewer = () => {
     reader.onload = (event) => {
       if (typeof event.target?.result === 'string') {
         setSourceImage(event.target.result);
-        setLoading(true);
-        
-        // Simulate processing new image
-        setTimeout(() => {
-          setLoading(false);
-          toast({
-            title: "New 3D Model Generated",
-            description: "Your 3D model has been updated based on the new image.",
-          });
-        }, 3000);
+        generateModel(file);
       }
     };
     reader.readAsDataURL(file);
@@ -222,7 +258,7 @@ const ModelViewer = () => {
                   </div>
                 ) : (
                   <div className="w-full h-full">
-                    <ModelViewer3D modelPath="/prosthetic-arm.glb" />
+                    <ModelViewer3D modelPath={modelUrl || "/prosthetic-arm.glb"} />
                   </div>
                 )}
               </div>

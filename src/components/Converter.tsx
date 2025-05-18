@@ -79,10 +79,15 @@ const Converter = () => {
 
     setProcessing(true);
     
-    // Simulate processing before navigating
+    // Navigate to the model viewer with both the image preview and the file
     setTimeout(() => {
       setProcessing(false);
-      navigate('/model-viewer', { state: { imageData: preview } });
+      navigate('/model-viewer', { 
+        state: { 
+          imageData: preview,
+          imageFile: file
+        } 
+      });
     }, 1500);
   };
 

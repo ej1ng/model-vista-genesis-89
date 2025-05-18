@@ -16,6 +16,7 @@ const CustomModelViewer = () => {
   // Get data from location state
   const sourceImage = location.state?.sourceImage;
   const drawingImage = location.state?.drawingImage;
+  const modelUrl = location.state?.modelUrl;
   
   useEffect(() => {
     if (!sourceImage || !drawingImage) {
@@ -24,24 +25,39 @@ const CustomModelViewer = () => {
       return;
     }
     
-    // Simulate custom model generation
+    // Just a short delay to show loading state
     const timer = setTimeout(() => {
       setLoading(false);
       toast({
         title: "Custom 3D Model Generated",
         description: "Your custom 3D model is ready to view and download.",
       });
-    }, 5000);
+    }, 1500);
     
     return () => clearTimeout(timer);
   }, [sourceImage, drawingImage, toast]);
   
   const handleDownload = () => {
-    toast({
-      title: "Download started",
-      description: "Your custom 3D model will download shortly.",
-    });
-    // In a real app, this would trigger an actual download
+    if (modelUrl) {
+      // Create an anchor element and trigger download
+      const a = document.createElement('a');
+      a.href = modelUrl;
+      a.download = 'custom-model.glb';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      
+      toast({
+        title: "Download started",
+        description: "Your custom 3D model will download shortly.",
+      });
+    } else {
+      toast({
+        title: "No model available",
+        description: "Please wait for the model to generate or try again.",
+        variant: "destructive",
+      });
+    }
   };
   
   const handleGoBack = () => {
@@ -153,7 +169,7 @@ const CustomModelViewer = () => {
                   </div>
                 ) : (
                   <div className="w-full h-full">
-                    <ModelViewer3D modelPath="/prosthetic-arm.glb" />
+                    <ModelViewer3D modelPath={modelUrl || "/prosthetic-arm.glb"} />
                   </div>
                 )}
               </div>

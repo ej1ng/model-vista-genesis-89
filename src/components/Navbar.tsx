@@ -1,9 +1,13 @@
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const isHomePage = location.pathname === '/';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -13,15 +17,27 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const scrollToSection = (id: string) => (e: React.MouseEvent) => {
+  const handleNavigation = (id: string) => (e: React.MouseEvent) => {
     e.preventDefault();
-    const element = document.getElementById(id);
-    if (element) {
-      window.scrollTo({
-        top: element.offsetTop - 100, // Offset for the navbar
-        behavior: 'smooth'
-      });
+    
+    if (isHomePage) {
+      // If we're on the home page, scroll to the section
+      const element = document.getElementById(id);
+      if (element) {
+        window.scrollTo({
+          top: element.offsetTop - 100, // Offset for the navbar
+          behavior: 'smooth'
+        });
+      }
+    } else {
+      // If we're on another page, navigate to home and add the hash
+      navigate(`/${id === 'top' ? '' : '#' + id}`);
     }
+  };
+
+  const goToHome = (e: React.MouseEvent) => {
+    e.preventDefault();
+    navigate('/');
   };
 
   return (
@@ -35,28 +51,28 @@ const Navbar = () => {
     >
       <div className="container flex items-center justify-between">
         <div className="flex items-center">
-          <a href="#top" className="flex items-center" onClick={scrollToSection('top')}>
+          <a href="/" className="flex items-center" onClick={goToHome}>
             <span className="text-2xl font-bold gradient-text">Prompt2CAD</span>
           </a>
           
           <nav className="hidden md:flex ml-10 space-x-8">
             <a 
-              href="#top" 
-              onClick={scrollToSection('top')}
+              href="/" 
+              onClick={goToHome}
               className="text-sm font-medium transition-colors hover:text-primary text-muted-foreground"
             >
               Home
             </a>
             <a 
-              href="#how-it-works" 
-              onClick={scrollToSection('how-it-works')}
+              href={isHomePage ? "#how-it-works" : "/#how-it-works"} 
+              onClick={handleNavigation('how-it-works')}
               className="text-sm font-medium transition-colors hover:text-primary text-muted-foreground"
             >
               How It Works
             </a>
             <a 
-              href="#converter" 
-              onClick={scrollToSection('converter')}
+              href={isHomePage ? "#converter" : "/#converter"} 
+              onClick={handleNavigation('converter')}
               className="text-sm font-medium transition-colors hover:text-primary text-muted-foreground"
             >
               Try It Now
